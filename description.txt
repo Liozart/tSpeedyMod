@@ -1,0 +1,13 @@
+A mod dedicated to Giux. xoxo
+
+Add : 
+	13 Weapons
+	2 Accessories
+	2 Town NPCs
+	1 Critter
+	1 Hostile NPC
+	2 new material (catched critter and hostile NPC drop) for crafting the weapons
+
+-------------------------------------------
+Work in progress
+Some sprites are from the Calamity Mod and were modified

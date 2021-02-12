@@ -1,0 +1,3 @@
+displayName = Giux Items
+author = Liozart
+version = 4.2.0
