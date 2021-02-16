@@ -30,3 +30,9 @@ C:\Users\Chat\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\bin\De
 C:\Users\Chat\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.csproj.CopyComplete
 C:\Users\Chat\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.dll
 C:\Users\Chat\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.pdb
+C:\Users\Léo\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.csprojAssemblyReference.cache
+C:\Users\Léo\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.AssemblyInfoInputs.cache
+C:\Users\Léo\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.AssemblyInfo.cs
+C:\Users\Léo\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.csproj.CoreCompileInputs.cache
+C:\Users\Léo\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.dll
+C:\Users\Léo\Documents\my games\Terraria\ModLoader\Mod Sources\GiuxItems\obj\Debug\net45\GiuxItems.pdb

@@ -26,11 +26,16 @@ namespace GiuxItems.Items.Weapons
             item.useTime = 50;
             item.useAnimation = 45;
             item.useStyle = ItemUseStyleID.SwingThrow;
-            item.knockBack = 12;
+            item.knockBack = 18;
             item.value = Item.buyPrice(gold: 10);
             item.rare = ItemRarityID.Green;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
+        }
+
+        public override void OnHitNPC(Player player, NPC target, int damage, float knockBack, bool crit)
+        {
+            target.AddBuff(BuffID.Ichor, 300);
         }
 
         public override void AddRecipes()
@@ -47,15 +52,7 @@ namespace GiuxItems.Items.Weapons
         //Some effects when hitting
         public override void MeleeEffects(Player player, Rectangle hitbox)
         {
-            if (Main.rand.NextBool(3))
-            {
-                //Emit dusts when the sword is swung
-                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.Blood);
-            }
-            else
-            {
-                Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, DustID.SomethingRed);
-            }
+            Dust.NewDust(new Vector2(hitbox.X, hitbox.Y), hitbox.Width, hitbox.Height, 107);
         }
     }
 }

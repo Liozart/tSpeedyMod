@@ -87,19 +87,6 @@ namespace GiuxItems.NPCs
             return "Giux";
         }
 
-        public override void FindFrame(int frameHeight)
-        {
-            /*npc.frame.Width = 40;
-			if (((int)Main.time / 10) % 2 == 0)
-			{
-				npc.frame.X = 40;
-			}
-			else
-			{
-				npc.frame.X = 0;
-			}*/
-        }
-
         public override string GetChat()
         {
             int partyGirl = NPC.FindFirstNPC(NPCID.Guide);
@@ -144,13 +131,11 @@ namespace GiuxItems.NPCs
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.TreeNymphButterfly);
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ItemID.MasterBait);
-            nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.LightningBug);
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.Worm);
             nextSlot++;
-            shop.item[nextSlot].SetDefaults(ItemID.RedAdmiralButterfly);
+            nextSlot++;
             nextSlot++;
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.WormholePotion);
@@ -158,6 +143,8 @@ namespace GiuxItems.NPCs
             shop.item[nextSlot].SetDefaults(ItemID.GreaterHealingPotion);
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.SpelunkerPotion);
+            nextSlot++;
+            shop.item[nextSlot].SetDefaults(ItemID.SpelunkerGlowstick);
             nextSlot++;
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.Beenade);

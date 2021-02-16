@@ -85,19 +85,6 @@ namespace GiuxItems.NPCs
             return "Léo";
         }
 
-        public override void FindFrame(int frameHeight)
-        {
-            /*npc.frame.Width = 40;
-			if (((int)Main.time / 10) % 2 == 0)
-			{
-				npc.frame.X = 40;
-			}
-			else
-			{
-				npc.frame.X = 0;
-			}*/
-        }
-
         public override string GetChat()
         {
             switch (Main.rand.Next(4))
@@ -131,20 +118,69 @@ namespace GiuxItems.NPCs
 
         public override void SetupShop(Chest shop, ref int nextSlot)
         {
-            shop.item[nextSlot].SetDefaults(ItemID.FrogLeg);
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ItemID.FlyingCarpet);
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ItemID.HiveBackpack);
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ItemID.RoyalGel); ;
-            nextSlot++;
-            nextSlot++;
-            nextSlot++;
-            shop.item[nextSlot].SetDefaults(ItemID.RodofDiscord); ;
+            shop.item[nextSlot].SetDefaults(ItemID.RodofDiscord);
             nextSlot++;
             shop.item[nextSlot].SetDefaults(ItemID.CellPhone);
             nextSlot++;
+            nextSlot++;
+            if (NPC.downedBoss1)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.KingSlimeBossBag);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.EaterOfWorldsBossBag);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.EyeOfCthulhuBossBag);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.BrainOfCthulhuBossBag);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.QueenBeeBossBag);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.SkeletronBossBag);
+                nextSlot++;
+            }
+            if (Main.hardMode)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.WallOfFleshBossBag);
+                nextSlot++;
+            }
+            if (NPC.downedMechBossAny)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.TwinsBossBag);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.SkeletronPrimeBossBag);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.DestroyerBossBag);
+                nextSlot++;
+            }
+            if (NPC.downedPlantBoss)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.PlanteraBossBag);
+                nextSlot++;
+            }
+            if (NPC.downedGolemBoss)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.GolemBossBag);
+                nextSlot++;
+            }
+            if (NPC.downedAncientCultist)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.BossBagDarkMage);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.FishronBossBag);
+                nextSlot++;
+            }
+            if (NPC.downedTowers)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.BossBagBetsy);
+                nextSlot++;
+                shop.item[nextSlot].SetDefaults(ItemID.BossBagOgre);
+                nextSlot++;
+            }
+            if (NPC.downedMoonlord)
+            {
+                shop.item[nextSlot].SetDefaults(ItemID.MoonLordBossBag);
+                nextSlot++;
+            }
         }
 
         public override void NPCLoot()

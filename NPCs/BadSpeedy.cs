@@ -31,8 +31,8 @@ namespace GiuxItems.NPCs
             //npc.npcSlots = 0.5f;
             //npc.noGravity = true;
             //npc.catchItem = 2007;
-            npc.lavaImmune = false;
-            //npc.aiStyle = 0;
+            npc.lavaImmune = true;
+            //npc.aiStyle = NPCID.Bunny;
             npc.friendly = false; // We have to add this and CanBeHitByItem/CanBeHitByProjectile because of reasons.
             aiType = NPCID.Bunny;
             animationType = NPCID.Bunny;
@@ -76,7 +76,8 @@ namespace GiuxItems.NPCs
 
         public override void NPCLoot()
         {
-            Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BadSpeedyItem>(), 420);
+            if (Main.rand.Next(3) > 1)
+                Item.NewItem((int)npc.position.X, (int)npc.position.Y, npc.width, npc.height, ItemType<BadSpeedyItem>(), 420);
         }
 
         internal class BadSpeedyItem : ModItem

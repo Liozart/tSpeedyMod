@@ -7,11 +7,11 @@ using static Terraria.ModLoader.ModContent;
 
 namespace GiuxItems.Items.Accessories
 {
-    public class Lighter : ModItem
+    public class Carrot : ModItem
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("Kentus's Lighter");
+            DisplayName.SetDefault("Kentus's Carrot");
             Tooltip.SetDefault("Double tap dash");
         }
 
@@ -21,8 +21,8 @@ namespace GiuxItems.Items.Accessories
             item.accessory = true;
             item.rare = ItemRarityID.Blue;
             item.value = Item.sellPrice(gold: 8);
-            item.width = 30;
-            item.height = 30;
+            item.width = 22;
+            item.height = 32;
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual)
@@ -80,7 +80,8 @@ namespace GiuxItems.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemType<BadSpeedyItem>(), 420);
+            recipe.AddIngredient(ItemID.HermesBoots, 1);
+            recipe.AddIngredient(ItemID.SoulofLight, 3);
             recipe.AddIngredient(ItemType<BadSpeedyItem>(), 420);
             recipe.SetResult(this);
             recipe.AddRecipe();
@@ -126,7 +127,7 @@ namespace GiuxItems.Items.Accessories
 
                 //Set the flag for the ExampleDashAccessory being equipped if we have it equipped OR immediately return if any of the accessories are
                 // one of the higher-priority ones
-                if (item.type == ItemType<Lighter>())
+                if (item.type == ItemType<Carrot>())
                     dashAccessoryEquipped = true;
                 else if (item.type == ItemID.EoCShield || item.type == ItemID.MasterNinjaGear || item.type == ItemID.Tabi)
                     return;

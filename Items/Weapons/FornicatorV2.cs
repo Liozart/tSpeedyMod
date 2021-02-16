@@ -16,7 +16,7 @@ namespace GiuxItems.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.damage = 45;
+            item.damage = 67;
             item.ranged = true;
             item.width = 40;
             item.height = 20;
@@ -37,7 +37,7 @@ namespace GiuxItems.Items.Weapons
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.BreakerBlade, 1);
-            recipe.AddIngredient(ItemID.CobaltBar, 10);
+            recipe.AddIngredient(ItemID.SoulofFright, 10);
             recipe.AddIngredient(ItemType<BadSpeedyItem>(), 420);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);

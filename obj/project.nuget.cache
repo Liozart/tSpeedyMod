@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "qwoeQfO/HJKxYTFMi+A3eQkjM83jNf1lWavAWWy+srwk5XGCyZqZBcTxKRYi2ILBctHIDhhsY8tMu+BdJFbYjQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Léo\\Documents\\my games\\Terraria\\ModLoader\\Mod Sources\\GiuxItems\\GiuxItems.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Léo\\.nuget\\packages\\tmodloader.codeassist\\0.1.1\\tmodloader.codeassist.0.1.1.nupkg.sha512"
+  ],
+  "logs": []
+}

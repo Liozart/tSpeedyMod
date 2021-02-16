@@ -41,8 +41,8 @@ namespace GiuxItems.Items.Accessories
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.HermesBoots, 1);
-            recipe.AddIngredient(ItemID.Silk, 10);
+            recipe.AddIngredient(ItemID.ClimbingClaws, 1);
+            recipe.AddIngredient(ItemID.SoulofNight, 3);
             recipe.AddIngredient(ItemType<BadSpeedyItem>(), 420);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
