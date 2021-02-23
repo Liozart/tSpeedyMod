@@ -1,6 +1,7 @@
 ﻿using GiuxItems.Tiles;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Terraria;
@@ -10,11 +11,12 @@ using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
+using Terraria.ObjectData;
 using Terraria.World.Generation;
 
-namespace ExampleMod
+namespace GiuxItems
 {
-	public class ExampleWorld : ModWorld
+	public class GiuxWorld : ModWorld
 	{
 		public static bool downedAbomination;
 		public static bool downedPuritySpirit;
@@ -183,10 +185,10 @@ namespace ExampleMod
 				// The inside of this for loop corresponds to one single splotch of our Ore.
 				// First, we randomly choose any coordinate in the world by choosing a random x and y value.
 				int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-				int y = WorldGen.genRand.Next((int)WorldGen.rockLayer, Main.maxTilesY); // WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
+				int y = WorldGen.genRand.Next((int)WorldGen.rockLayerLow, Main.maxTilesY); // WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
 
 				// Then, we call WorldGen.TileRunner with random "strength" and random "steps", as well as the Tile we wish to place. Feel free to experiment with strength and step to see the shape they generate.
-				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(10, 11), WorldGen.genRand.Next(10, 11), ModContent.TileType<GiuxOre>());
+				WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 10), WorldGen.genRand.Next(10, 11), ModContent.TileType<GiuxOre>());
 
 				// Alternately, we could check the tile already present in the coordinate we are interested. Wrapping WorldGen.TileRunner in the following condition would make the ore only generate in Snow.
 				// Tile tile = Framing.GetTileSafely(x, y);
@@ -408,8 +410,11 @@ namespace ExampleMod
 		};
 
 		public bool PlaceWell(int i, int j)
-		{
-			if (!WorldGen.SolidTile(i, j + 1))
+        {
+
+            Vector2 chestPos = new Vector2();
+
+            if (!WorldGen.SolidTile(i, j + 1))
 			{
 				return false;
 			}
@@ -466,19 +471,37 @@ namespace ExampleMod
 								tile.wall = WallID.LivingLeaf;
 								break;
 						}
-						//Add a treasure
+
 						switch (_wellshapeWater[y, x])
 						{
 							case 1:
-								break;
-							case 2:
 								tile.liquid = 255;
 								break;
-						}
+                            case 2:
+                                tile.liquid = 255;
+                                chestPos.X = k;
+                                chestPos.Y = l;
+                                break;
+                        }
 					}
 				}
 			}
-			return true;
+
+            //Place chests in the bottom
+            int ind = WorldGen.PlaceChest((int)chestPos.X, (int)chestPos.Y, 21, false, 13);
+            Chest chest = Main.chest[ind];
+            //Place items
+            int[] wellChestItemsList = { ModContent.ItemType<Items.Accessories.OCB>(), ModContent.ItemType<Items.Accessories.Carrot>(), ItemID.PinkJellyfishJar };
+            for (int inventoryIndex = 0; inventoryIndex < 40; inventoryIndex++)
+            {
+                if (chest.item[inventoryIndex].type == ItemID.None)
+                {
+                    chest.item[inventoryIndex].SetDefaults(wellChestItemsList[Main.rand.Next(0, wellChestItemsList.Length)]);
+                    break;
+                }
+            }
+
+            return true;
 		}
 
 		// We can use PostWorldGen for world generation tasks that don't need to happen between vanilla world generation steps.
@@ -491,14 +514,14 @@ namespace ExampleMod
 			//}
 
 			// Here we spawn Example Person just like the Guide.
-			int num = NPC.NewNPC((Main.spawnTileX + 5) * 16, Main.spawnTileY * 16, ModContent.NPCType<GiuxItems.NPCs.Leo>(), 0, 0f, 0f, 0f, 0f, 255);
+			int num = NPC.NewNPC((Main.spawnTileX + 5) * 16, Main.spawnTileY * 16, ModContent.NPCType<NPCs.Leo>(), 0, 0f, 0f, 0f, 0f, 255);
 			Main.npc[num].homeTileX = Main.spawnTileX + 5;
 			Main.npc[num].homeTileY = Main.spawnTileY;
 			Main.npc[num].direction = 1;
 			Main.npc[num].homeless = true;
 
 			// Place some items in Ice Chests
-			int[] itemsToPlaceInIceChests = { ModContent.ItemType<GiuxItems.Items.Accessories.OCB>(), ModContent.ItemType<GiuxItems.Items.Accessories.Carrot>(), ItemID.PinkJellyfishJar };
+			int[] itemsToPlaceInIceChests = { ModContent.ItemType<Items.Accessories.OCB>(), ModContent.ItemType<Items.Accessories.Carrot>(), ItemID.PinkJellyfishJar };
 			int itemsToPlaceInIceChestsChoice = 0;
 			for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
 			{

@@ -3,6 +3,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
+using Terraria.ObjectData;
 
 namespace GiuxItems.Tiles
 {
@@ -10,21 +11,22 @@ namespace GiuxItems.Tiles
     {
 		public override void SetDefaults()
 		{
-			TileID.Sets.Ore[Type] = true;
-			Main.tileSpelunker[Type] = true; // The tile will be affected by spelunker highlighting
-			Main.tileValue[Type] = 410; // Metal Detector value, see https://terraria.gamepedia.com/Metal_Detector
-			Main.tileShine2[Type] = true; // Modifies the draw color slightly.
-			Main.tileShine[Type] = 975; // How often tiny dust appear off this tile. Larger is less frequently
-			Main.tileMergeDirt[Type] = false;
-			Main.tileSolid[Type] = true;
-			Main.tileBlockLight[Type] = true;
+            Main.tileShine[Type] = 1100;
+            Main.tileSolid[Type] = true;
+            Main.tileSolidTop[Type] = true;
+            Main.tileFrameImportant[Type] = true;
 
-			ModTranslation name = CreateMapEntryName();
+            TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
+            TileObjectData.newTile.StyleHorizontal = true;
+            TileObjectData.newTile.LavaDeath = false;
+            TileObjectData.addTile(Type);
+
+            ModTranslation name = CreateMapEntryName();
 			name.SetDefault("GiuxBar");
 			name.AddTranslation(GameCulture.French, "Barre de Giux");
 			AddMapEntry(new Color(152, 171, 198), name);
 
-			dustType = 87;
+            dustType = 87;
 			drop = ModContent.ItemType<Items.Placeables.GiuxBar>();
 			soundType = SoundID.Tink;
 			soundStyle = 1;
