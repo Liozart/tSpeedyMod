@@ -35,9 +35,11 @@ namespace GiuxItems.Items.Weapons
 		public override void AddRecipes() {
 			ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.IllegalGunParts, 2);
-            recipe.AddIngredient(ItemID.Fireblossom, 3);
+            recipe.AddIngredient(ItemID.Javelin, 50);
+            recipe.AddIngredient(ItemID.Shuriken, 50);
+            recipe.AddIngredient(ItemID.SilverBullet, 50);
             recipe.AddIngredient(ItemType<SpeedyItem>(), 1);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

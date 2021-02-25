@@ -15,13 +15,14 @@ namespace GiuxItems.Projectiles
         {
             projectile.width = 30;
             projectile.height = 30;
-            projectile.aiStyle = 8;
-            aiType = 8;
+            projectile.aiStyle = 23;
+            aiType = 23;
             projectile.ranged = true;
             drawOffsetX = -25;
             projectile.friendly = true;
             projectile.hostile = false;
-            projectile.damage = 45;
+            projectile.damage = 50;
+
         }
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)

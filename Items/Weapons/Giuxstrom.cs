@@ -6,6 +6,7 @@ using static Terraria.ModLoader.ModContent;
 using static GiuxItems.NPCs.Speedy;
 using static GiuxItems.NPCs.BadSpeedy;
 using GiuxItems.Projectiles;
+using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Weapons
 {
@@ -19,11 +20,11 @@ namespace GiuxItems.Items.Weapons
 
         public override void SetDefaults()
         {
-            item.damage = 80;
+            item.damage = 85;
             item.melee = true;
             item.width = 94;
             item.height = 94;
-            item.useTime = 50;
+            item.useTime = 45;
             item.useAnimation = 45;
             item.useStyle = ItemUseStyleID.SwingThrow;
             item.knockBack = 18;
@@ -43,8 +44,9 @@ namespace GiuxItems.Items.Weapons
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.GoldCrown, 1);
             recipe.AddIngredient(ItemID.Shackle, 1);
+            recipe.AddIngredient(ItemType<GiuxBar>(), 20);
             recipe.AddIngredient(ItemType<BadSpeedyItem>(), 420);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddTile(TileID.Anvils);
             recipe.SetResult(this);
             recipe.AddRecipe();
         }

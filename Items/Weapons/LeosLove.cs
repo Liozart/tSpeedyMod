@@ -86,7 +86,7 @@ namespace GiuxItems.Items.Weapons
 			ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.HeartLantern, 1);
             recipe.AddIngredient(ItemID.SilverChainmail, 1);
-            recipe.AddIngredient(ItemID.ClayBlock, 25);
+            recipe.AddIngredient(ItemID.Marble, 42);
             recipe.AddIngredient(ItemType<SpeedyItem>(), 1);
             recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);

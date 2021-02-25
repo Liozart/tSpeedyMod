@@ -23,12 +23,14 @@ namespace GiuxItems.Items.Placeables
 			item.width = 17;
 			item.height = 18;
 			item.value = 30000;
+            item.material = true;
 		}
 
 		public override void AddRecipes()
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ModContent.ItemType<GiuxOre>(), 4);
+			recipe.AddIngredient(ModContent.ItemType<GiuxOre>(), 5);
+            recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

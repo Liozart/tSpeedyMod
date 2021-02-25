@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
 using static GiuxItems.NPCs.Speedy;
 using static GiuxItems.NPCs.BadSpeedy;
+using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Weapons
 {
@@ -64,12 +65,11 @@ namespace GiuxItems.Items.Weapons
         public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-			recipe.AddIngredient(ItemID.IronShortsword, 1);
             recipe.AddIngredient(ItemID.Ruby, 1);
             recipe.AddIngredient(ItemID.Sapphire, 1);
             recipe.AddIngredient(ItemID.Topaz, 1);
             recipe.AddIngredient(ItemID.Emerald, 1);
-            recipe.AddIngredient(ItemType<SpeedyItem>(), 1);
+            recipe.AddIngredient(ItemType<GiuxBar>(), 10);
             recipe.AddTile(TileID.WorkBenches);
 			recipe.SetResult(this);
 			recipe.AddRecipe();

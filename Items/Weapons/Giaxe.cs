@@ -6,6 +6,7 @@ using static Terraria.ModLoader.ModContent;
 using static GiuxItems.NPCs.Speedy;
 using static GiuxItems.NPCs.BadSpeedy;
 using Microsoft.Xna.Framework.Graphics;
+using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Weapons
 {
@@ -39,7 +40,7 @@ namespace GiuxItems.Items.Weapons
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.ClimbingClaws, 1);
             recipe.AddIngredient(ItemID.BandofRegeneration, 1);
-            recipe.AddIngredient(ItemType<BadSpeedyItem>(), 420);
+            recipe.AddIngredient(ItemType<GiuxBar>(), 20);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();

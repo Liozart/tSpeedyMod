@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static GiuxItems.NPCs.Speedy;
 using static Terraria.ModLoader.ModContent;
+using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Weapons
 {
@@ -35,11 +36,11 @@ namespace GiuxItems.Items.Weapons
 		public override void AddRecipes() 
 		{
 			ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.GoldBar, 5);
             recipe.AddIngredient(ItemID.Shiverthorn, 3);
             recipe.AddIngredient(ItemID.Daybloom, 3);
-            recipe.AddIngredient(ItemType<SpeedyItem>(), 1);
-            recipe.AddTile(TileID.WorkBenches);
+            recipe.AddIngredient(ItemID.GoldBar, 5);
+            recipe.AddIngredient(ItemType<GiuxBar>(), 15);
+            recipe.AddTile(TileID.Anvils);
 			recipe.SetResult(this);
 			recipe.AddRecipe();
 		}

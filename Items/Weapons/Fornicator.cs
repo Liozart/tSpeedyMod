@@ -5,6 +5,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using static GiuxItems.NPCs.BadSpeedy;
 using static GiuxItems.NPCs.Speedy;
+using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Weapons
 {
@@ -37,10 +38,8 @@ namespace GiuxItems.Items.Weapons
         public override void AddRecipes()
         {
             ModRecipe recipe = new ModRecipe(mod);
-            recipe.AddIngredient(ItemID.Javelin, 50);
-            recipe.AddIngredient(ItemID.Shuriken, 50);
-            recipe.AddIngredient(ItemID.ThrowingKnife, 50);
-            recipe.AddIngredient(ItemID.SilverBullet, 50);
+            recipe.AddIngredient(ItemID.BeeGun);
+            recipe.AddIngredient(ItemType<GiuxBar>(), 13);
             recipe.AddIngredient(ItemType<BadSpeedyItem>(), 420);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);

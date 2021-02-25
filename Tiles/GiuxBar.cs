@@ -11,21 +11,23 @@ namespace GiuxItems.Tiles
     {
 		public override void SetDefaults()
 		{
-            Main.tileShine[Type] = 1100;
             Main.tileSolid[Type] = true;
+            Main.tileMergeDirt[Type] = false;
             Main.tileSolidTop[Type] = true;
+            Main.tileTable[Type] = true;
             Main.tileFrameImportant[Type] = true;
+            Main.tileShine[Type] = 220;
+            Main.tileShine2[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);
             TileObjectData.newTile.StyleHorizontal = true;
             TileObjectData.newTile.LavaDeath = false;
+            TileObjectData.newTile.CoordinateHeights = new int[] { 16 };
             TileObjectData.addTile(Type);
 
             ModTranslation name = CreateMapEntryName();
 			name.SetDefault("GiuxBar");
-			name.AddTranslation(GameCulture.French, "Barre de Giux");
-			AddMapEntry(new Color(152, 171, 198), name);
-
+			AddMapEntry(new Color(0, 244, 0), name);
             dustType = 87;
 			drop = ModContent.ItemType<Items.Placeables.GiuxBar>();
 			soundType = SoundID.Tink;
