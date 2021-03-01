@@ -54,8 +54,14 @@ namespace GiuxItems.Projectiles
 
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
+            target.AddBuff(BuffID.BetsysCurse, 1200);
             for (int i = 0; i < 4; i++)
                 Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.FlameBurst);
+
+            Projectile.NewProjectile(projectile.position, new Vector2(10, 0), ModContent.ProjectileType<SpriteFlame>(), damage, knockback);
+            Projectile.NewProjectile(projectile.position, new Vector2(-10, 0), ModContent.ProjectileType<SpriteFlame>(), damage, knockback);
+            Projectile.NewProjectile(projectile.position, new Vector2(0, 10), ModContent.ProjectileType<SpriteFlame>(), damage, knockback);
+            Projectile.NewProjectile(projectile.position, new Vector2(0, -10), ModContent.ProjectileType<SpriteFlame>(), damage, knockback);
         }
 
         public override bool OnTileCollide(Vector2 oldVelocity)

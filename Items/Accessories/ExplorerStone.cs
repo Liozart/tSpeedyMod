@@ -30,16 +30,12 @@ namespace GiuxItems.Items.Accessories
 
         public override void RightClick(Player player)
         {
-            int maxAccessoryIndex = 5 + Main.LocalPlayer.extraAccessorySlots;
-            for (int i = 3; i < 3 + maxAccessoryIndex; i++)
-            {
-                if (Main.LocalPlayer.armor[i].IsAir)
-                {
-                    Main.LocalPlayer.armor[i] = item.Clone();
-                    break;
-                }
-            }
             player.TeleportationPotion();
+        }
+
+        public override bool ConsumeItem(Player player)
+        {
+            return false;
         }
 
         public override int ChoosePrefix(UnifiedRandom rand)

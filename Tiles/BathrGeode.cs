@@ -14,7 +14,7 @@ namespace GiuxItems.Tiles
             Main.tileSolid[Type] = true;
             Main.tileMergeDirt[Type] = false;
             Main.tileSolidTop[Type] = true;
-            Main.tileTable[Type] = false;
+            Main.tileTable[Type] = true;
             Main.tileFrameImportant[Type] = true;
 
             TileObjectData.newTile.CopyFrom(TileObjectData.Style1x1);

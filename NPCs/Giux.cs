@@ -1,10 +1,6 @@
-﻿using System;
-using GiuxItems.Items;
-using GiuxItems.Items.Weapons;
-using Microsoft.Xna.Framework;
+﻿using GiuxItems.Items.Placeables;
 using Terraria;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
 using static GiuxItems.NPCs.Speedy;
 using static Terraria.ModLoader.ModContent;
@@ -73,7 +69,7 @@ namespace GiuxItems.NPCs
                 }
                 foreach (Item item in player.inventory)
                 {
-                    if (item.type == ItemType<GreenBunny>() || item.type == ItemType<LeosLove>())
+                    if (item.type == ItemType<GiuxBar>())
                     {
                         return true;
                     }
@@ -93,7 +89,8 @@ namespace GiuxItems.NPCs
             switch (Main.rand.Next(4))
             {
                 case 0:
-                    return "biteleo420";
+                    Main.npcChatCornerItem = ItemType<BathriteBar>();
+                    return $"La bathrite [i:{ItemType<Bathrite>()}] se trouve au bout de l'enfer, dans les deux sens."; ;
                 case 1:
                     return "BAAAAAAATTTTHR";
                 case 2:

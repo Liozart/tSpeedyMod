@@ -4,6 +4,7 @@ using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using static GiuxItems.NPCs.Speedy;
 using Terraria.Utilities;
+using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Accessories
 {
@@ -11,6 +12,7 @@ namespace GiuxItems.Items.Accessories
     {
         public override void SetStaticDefaults()
         {
+            DisplayName.SetDefault("Friend Seeker");
             Tooltip.SetDefault("Right click while in the inventory to teleport to a friend !");
         }
 
@@ -30,16 +32,6 @@ namespace GiuxItems.Items.Accessories
 
         public override void RightClick(Player player)
         {
-            //Clone and re equip item
-            int maxAccessoryIndex = 5 + Main.LocalPlayer.extraAccessorySlots;
-            for (int i = 3; i < 3 + maxAccessoryIndex; i++)
-            {
-                if (Main.LocalPlayer.armor[i].IsAir)
-                {
-                    Main.LocalPlayer.armor[i] = item.Clone();
-                    break;
-                }
-            }
             //Teleport to another player
             for(int i = 0; i < 255; i++)
                 if (Main.player[i].active)
@@ -47,6 +39,11 @@ namespace GiuxItems.Items.Accessories
                     player.Teleport(Main.player[i].position);
                     break;
                 }
+        }
+
+        public override bool ConsumeItem(Player player)
+        {
+            return false;
         }
 
         public override int ChoosePrefix(UnifiedRandom rand)
@@ -60,7 +57,7 @@ namespace GiuxItems.Items.Accessories
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemID.LifeCrystal, 2);
             recipe.AddIngredient(ItemID.ManaCrystal, 2);
-            recipe.AddIngredient(ItemType<SpeedyItem>(), 2);
+            recipe.AddIngredient(ItemType<BathriteBar>(), 10);
             recipe.AddTile(TileID.WorkBenches);
             recipe.SetResult(this);
             recipe.AddRecipe();

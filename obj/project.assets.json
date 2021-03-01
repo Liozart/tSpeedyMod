@@ -31,24 +31,25 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Chat\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Léo\\.nuget\\packages\\": {},
+    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Chat\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\GiuxItems\\GiuxItems.csproj",
+      "projectUniqueName": "C:\\Users\\Léo\\Documents\\my games\\Terraria\\ModLoader\\Mod Sources\\GiuxItems\\GiuxItems.csproj",
       "projectName": "GiuxItems",
-      "projectPath": "C:\\Users\\Chat\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\GiuxItems\\GiuxItems.csproj",
-      "packagesPath": "C:\\Users\\Chat\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Chat\\Documents\\My Games\\Terraria\\ModLoader\\Mod Sources\\GiuxItems\\obj\\",
+      "projectPath": "C:\\Users\\Léo\\Documents\\my games\\Terraria\\ModLoader\\Mod Sources\\GiuxItems\\GiuxItems.csproj",
+      "packagesPath": "C:\\Users\\Léo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Léo\\Documents\\my games\\Terraria\\ModLoader\\Mod Sources\\GiuxItems\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        "C:\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Chat\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\Léo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net45"
@@ -59,6 +60,7 @@
       },
       "frameworks": {
         "net45": {
+          "targetAlias": "net45",
           "projectReferences": {}
         }
       },
@@ -70,12 +72,14 @@
     },
     "frameworks": {
       "net45": {
+        "targetAlias": "net45",
         "dependencies": {
           "tModLoader.CodeAssist": {
             "target": "Package",
             "version": "[0.1.*, )"
           }
-        }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

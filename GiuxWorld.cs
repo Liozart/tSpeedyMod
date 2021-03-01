@@ -19,18 +19,26 @@ namespace GiuxItems
     public class GiuxWorld : ModWorld
     {
         const double giuxOreNmb = 5E-05;
-        const float wellNmb = 2200f;
+        const float wellNmb = 1600f;
         const float tunnelsNmb = 80f;
+        const float castliesNumber = 160f;
+        const int bathriteNumber = 10;
 
         int[] tunnelChestItemsList = { ItemID.PhilosophersStone, ItemID.LuckyHorseshoe, ItemID.BalloonPufferfish, ItemID.PowerGlove, ItemID.FleshKnuckles, ItemID.MoonCharm,
                                     ItemID.MagmaStone, ItemID.FrozenTurtleShell, ItemID.PaladinsShield, ItemID.ShinyRedBalloon, ItemID.Seaweed, ItemID.ObsidianRose,
-                                    ItemID.PutridScent, ItemID.SharkToothNecklace, ItemID.Flamelash, ItemID.JellyfishNecklace, ItemID.GoldenFishingRod, ItemID.FishHook, ItemID.FuzzyCarrot };
+                                    ItemID.PutridScent, ItemID.SharkToothNecklace, ItemID.Flamelash, ItemID.JellyfishNecklace, ItemID.GoldenFishingRod, ItemID.FishHook, ItemID.FuzzyCarrot,
+                                    ItemID.SlimeStaff, ItemID.CandyCornRifle, ItemID.BladedGlove, ItemID.BloodyMachete, ItemID.Cascade, ItemID.BoneSword};
+        
         int[] wellChestItemsList = { ItemID.DivingGear, ItemID.DivingHelmet, ItemID.SailfishBoots, ItemID.WaterWalkingBoots, ItemID.FrogLeg, ItemID.PhilosophersStone,
                                     ItemID.ClimbingClaws, ItemID.WhoopieCushion, ItemID.NeptunesShell};
-        int[] tunnelBonusChestItemsList = { ItemID.SpelunkerPotion, ItemID.TeleportationPotion, ItemID.GreaterHealingPotion, ItemID.MasterBait, ItemID.MythrilBar, ModContent.ItemType<Items.Placeables.BathrGeode>() };
+        
+        int[] tunnelBonusChestItemsList = { ItemID.SpelunkerPotion, ItemID.TeleportationPotion, ItemID.GreaterHealingPotion, ItemID.MasterBait, ItemID.MythrilBar,
+                                            ItemID.CorruptFishingCrate, ItemID.CratePotion, ItemID.CrimsonFishingCrate, ItemID.FloatingIslandFishingCrate, ItemID.GoldenCrate,
+                                            ItemID.IronCrate, ItemID.JungleFishingCrate, ItemID.WoodenCrate};
 
-        public override void Initialize()
-        { }
+        int[] castliesChestItemList = { ItemID.IlluminantHook, ItemID.InfernoFork, ItemID.TheHorsemansBlade, ItemID.StakeLauncher, ItemID.RavenStaff, ItemID.ChristmasTreeSword,
+                                        ItemID.ChainGun, ItemID.BlizzardStaff, ItemID.BatScepter, ItemID.CoinGun, ItemID.BeamSword, ItemID.Marrow, ItemID.Uzi, ItemID.MagicQuiver,
+                                        ItemID.DemonHeart, ItemID.BrainScrambler, ItemID.FrostStaff};
 
         // We use this hook to add 3 steps to world generation at various points. 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
@@ -51,20 +59,250 @@ namespace GiuxItems
             int LivingTreesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Living Trees"));
             if (LivingTreesIndex != -1)
             {
-                tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Post Terrain", delegate (GenerationProgress progress)
+                tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Wells", delegate (GenerationProgress progress)
                 {
                     // We can inline the world generation code like this, but if exceptions happen within this code 
                     // the error messages are difficult to read, so making methods is better. This is called an anonymous method.
-                    progress.Message = "Making wells and tunnels";
+                    progress.Message = "Making wells";
                     MakeWells();
                 }));
-            }
 
-            //Add mine tunnels step
-            int PostIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Spider Caves"));
-            if (PostIndex != -1)
-                tasks.Insert(PostIndex + 1, new PassLegacy("Mine Tunnels", MakeTunnels));
+                //Add mine tunnels step
+                tasks.Insert(LivingTreesIndex + 2, new PassLegacy("Mine Tunnels", MakeTunnels));
+                //Add lil castlies
+                tasks.Insert(LivingTreesIndex + 3, new PassLegacy("Castles", Castlies));
+                //Add hell holes
+                tasks.Insert(LivingTreesIndex + 4, new PassLegacy("Bathrite ore", Bathrite));
+            }
         }
+
+        #region Bathrite
+
+        private void Bathrite(GenerationProgress progress)
+        {
+            progress.Message = "Spreading Bathrite";
+            for (int k = 0; k < bathriteNumber; k++)
+            {
+                bool success = false;
+                int cnt = 0;
+                while (!success && cnt < 1000)
+                {
+                    cnt++;
+                    int ranX1 = Main.rand.Next(200, 550);
+                    int ranX2 = Main.rand.Next(Main.maxTilesX - 550, Main.maxTilesX - 200);
+                    int ranX = (Main.rand.Next(0, 2) == 0) ? ranX1 : ranX2;
+                    int ranY = Main.rand.Next(Main.maxTilesY - 80, Main.maxTilesY - 70);
+                    if (WorldGen.InWorld(ranX, ranY))
+                    {
+                        WorldGen.TileRunner(ranX, ranY, 10, 24, ModContent.TileType<Bathrite>(), true, 0, 0, false, true);
+                        success = true;
+                    }
+                    int upY = 0;
+                    int min = 0;
+                    Tile t = Framing.GetTileSafely(ranX, ranY + upY);
+                    while (t.active() || t.lava())
+                    {
+                        int randt = Main.rand.Next(0, 3);
+                        if (min > 10 && randt != 0)
+                        {
+                            t.type = (ushort)ModContent.TileType<Bathrite>();
+                            if (t.lava())
+                            {
+                                t.lava(false);
+                                t.active(true);
+                            }
+                        }
+                        upY++; min++;
+                        t = Framing.GetTileSafely(ranX, ranY - upY);
+                    }
+                }
+            }
+        }
+
+        #endregion
+
+        #region Castlies
+
+        private void Castlies(GenerationProgress progress)
+    {
+        progress.Message = "Lil' Castles";
+        float widthScale = Main.maxTilesX / castliesNumber;
+        int tre = (int)(2f * widthScale);
+        int numberToGenerate = WorldGen.genRand.Next((tre / 2) + 1, tre + 1);
+        for (int k = 0; k < numberToGenerate; k++)
+        {
+            bool success = false;
+            int cnt = 0;
+            while (!success && cnt < 1000)
+            {
+                cnt++;
+                int ranX = Main.rand.Next(200, Main.maxTilesX - 200);
+                int ranY = Main.rand.Next((int)WorldGen.rockLayerHigh + 200, Main.maxTilesY - 220);
+                if (WorldGen.InWorld(ranX, ranY))
+                {
+                    //If in a certain biome, leave
+                    bool placementOK = true;
+                    for (int l = ranX; l < ranX + 11; l++)
+                    {
+                        for (int m = ranY; m < ranY + 10; m++)
+                        {
+                            if (Main.tile[l, m].active())
+                            {
+                                int type = (int)Main.tile[l, m].type;
+                                if (type == TileID.BlueDungeonBrick || type == TileID.GreenDungeonBrick || type == TileID.PinkDungeonBrick)
+                                    placementOK = false;
+                            }
+                        }
+                    }
+                    if (!placementOK)
+                        break;
+                    else
+                        success = true;
+
+                    //Create castle tiles and walls
+                    for (int y = 0; y < _castleshape.GetLength(0); y++)
+                    {
+                        for (int x = 0; x < _castleshape.GetLength(1); x++)
+                        {
+                            int posX = ranX + x;
+                            int posY = ranY + y;
+                            if (WorldGen.InWorld(posX, posY, 30))
+                            {
+                                Tile t = Framing.GetTileSafely(posX, posY);
+                                switch (_castleshapewalls[y, x])
+                                {
+                                    case 1:
+                                        t.wall = WallID.ChlorophyteBrick;
+                                        t.active(false);
+                                        break;
+                                    case 2:
+                                        t.wall = WallID.AdamantiteBeam;
+                                        t.active(false);
+                                        break;
+                                }
+                                switch (_castleshape[y, x])
+                                {
+                                    case 1:
+                                        t.type = TileID.GreenDungeonBrick;
+                                        t.active(true);
+                                        break;
+                                    case 2:
+                                        t.type = TileID.Traps;
+                                        t.frameY = 18;
+                                        if (x == 0)
+                                            t.frameX = 18;
+                                        else
+                                            t.frameX = 0;
+                                        t.active(true);
+                                        break;
+                                    case 3:
+                                        t.type = TileID.GreenDungeonBrick;
+                                        t.active(true);
+                                        break;
+                                }
+                                //Maybe place a beam
+                                if (y == 9 && (Main.rand.Next(0, 7) == 0))
+                                {
+                                    int cntbeam = 1;
+                                    Tile tilebe = Framing.GetTileSafely(posX, posY + cntbeam);
+                                    while (!tilebe.active())
+                                    {
+                                        if (cntbeam < 4)
+                                            tilebe.type = TileID.WoodenBeam;
+                                        else
+                                            tilebe.type = TileID.PinkDungeonBrick;
+                                        tilebe.active(true);
+                                        cntbeam++;
+                                        tilebe = Framing.GetTileSafely(posX, posY + cntbeam);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    //Put entry
+                    int entpos = Main.rand.Next(ranX + 1, ranX + 22);
+                    for (int en = entpos; en < (entpos + 3); en++)
+                    {
+                        //Place plaforms
+                        Tile tilentry = Framing.GetTileSafely(en, ranY);
+                        tilentry.type = TileID.TeamBlockGreenPlatform;
+                        //Dig up until theres a empty tile above the platform
+                        bool nothing = false;
+                        int lessY = 1;
+                        while (!nothing)
+                        {
+                            Tile tile = Framing.GetTileSafely(en, ranY - lessY);
+                            if (!tile.active())
+                                nothing = true;
+                            else
+                            {
+                                tile.active(false);
+                                lessY++;
+                            }
+                        }
+                    }
+
+                    //Then put decorations
+                    for (int y = 0; y < _castleshape.GetLength(0); y++)
+                    {
+                        for (int x = 0; x < _castleshape.GetLength(1); x++)
+                        {
+                            int posX = ranX + x;
+                            int posY = ranY + y;
+                            if (WorldGen.InWorld(posX, posY, 30))
+                            {
+                                switch (_castleshapeDecoration[y, x])
+                                {
+                                    //Bunny statue
+                                    case 1:
+                                        WorldGen.PlaceTile(posX, posY, 105, forced:true, style: 9);
+                                        break;
+                                    //Chest
+                                    case 2:
+                                        int indi = WorldGen.PlaceChest(posX, posY, 21, false, 15);
+                                        if (indi != -1)
+                                        {
+                                            Chest chestie = Main.chest[indi];
+                                            chestie.item[0].SetDefaults(ModContent.ItemType<Items.Placeables.BathrGeode>());
+                                            chestie.item[1].SetDefaults(castliesChestItemList[Main.rand.Next(0, castliesChestItemList.Length)]);
+                                        }
+                                        break;
+                                    //Torches
+                                    case 3:
+                                        //WorldGen.Place1x1(posX, posY, 4, 18);
+                                        //WorldGen.PlaceTile(posX, posY, 4, forced: true, style: 18);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                    //Then put wiring
+                    for (int y = 0; y < _castleshape.GetLength(0); y++)
+                    {
+                        for (int x = 0; x < _castleshape.GetLength(1); x++)
+                        {
+                            int posX = ranX + x;
+                            int posY = ranY + y;
+                            if (WorldGen.InWorld(posX, posY, 30))
+                            {
+                                Tile t = Framing.GetTileSafely(posX, posY);
+                                switch (_castleshapeWiring[y, x])
+                                {
+                                    case 1: t.wire3(true);
+                                        break;
+                                    case 2: t.wire3(true);
+                                        WorldGen.PlaceTile(posX, posY, 135, forced: true, style: 2);
+                                        break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    #endregion
 
         #region GiuxOres
 
@@ -80,10 +318,10 @@ namespace GiuxItems
                 // The inside of this for loop corresponds to one single splotch of our Ore.
                 // First, we randomly choose any coordinate in the world by choosing a random x and y value.
                 int x = WorldGen.genRand.Next(0, Main.maxTilesX);
-                int y = WorldGen.genRand.Next((int)WorldGen.rockLayerLow, Main.maxTilesY); // WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
+                int y = WorldGen.genRand.Next((int)WorldGen.rockLayer - 300, Main.maxTilesY); // WorldGen.worldSurfaceLow is actually the highest surface tile. In practice you might want to use WorldGen.rockLayer or other WorldGen values.
 
                 // Then, we call WorldGen.TileRunner with random "strength" and random "steps", as well as the Tile we wish to place. Feel free to experiment with strength and step to see the shape they generate.
-                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 10), WorldGen.genRand.Next(10, 11), ModContent.TileType<GiuxOre>());
+                WorldGen.TileRunner(x, y, WorldGen.genRand.Next(6, 10), WorldGen.genRand.Next(6, 10), ModContent.TileType<GiuxOre>());
 
                 // Alternately, we could check the tile already present in the coordinate we are interested. Wrapping WorldGen.TileRunner in the following condition would make the ore only generate in Snow.
                 // Tile tile = Framing.GetTileSafely(x, y);
@@ -110,7 +348,7 @@ namespace GiuxItems
                 while (!success)
                 {
                     attempts++;
-                    if (attempts > 1000)
+                    if (attempts > 2000)
                     {
                         success = true;
                         continue;
@@ -236,7 +474,9 @@ namespace GiuxItems
             return true;
         }
 
-#endregion
+        #endregion
+
+        #region Tunnels
 
         private void MakeTunnels(GenerationProgress progress)
         {
@@ -266,7 +506,7 @@ namespace GiuxItems
 
         public bool PlaceTunnel(int i, int j)
         {
-            int tunnelHeight = Main.rand.Next(4, 8);
+            int tunnelHeight = Main.rand.Next(5, 9);
             //Chest bool
             bool isChestPlaced = false;
             //Create tunnel shapes
@@ -299,7 +539,6 @@ namespace GiuxItems
                             if (Main.rand.Next(0, (7 + w)) != 0)
                             {
                                 Tile til = Framing.GetTileSafely(posAX + w, posAY + wd);
-                                til.type = 0;
                                 til.active(false);
                             }
                         }
@@ -322,7 +561,6 @@ namespace GiuxItems
                         for (int em = (posAY + 1); em < posBY; em++)
                         {
                             Tile tilem = Framing.GetTileSafely(posAX, em);
-                            tilem.type = 0;
                             tilem.wall = WallID.BorealWood;
                             tilem.active(false);
                         }
@@ -350,7 +588,7 @@ namespace GiuxItems
                     {
                         int cnt = 1;
                         Tile bt = Framing.GetTileSafely(posBX, posBY + 1);
-                        while(bt.active() != true)
+                        while(!bt.active())
                         {
                             cnt++;
                             bt.type = TileID.WoodenBeam;
@@ -382,7 +620,6 @@ namespace GiuxItems
                             for (int em = (posAY + 1); em < posBY; em++)
                             {
                                 Tile tilem = Framing.GetTileSafely(posAX, em);
-                                tilem.type = 0;
                                 tilem.wall = WallID.BorealWood;
                                 tilem.active(false);
                             }
@@ -403,7 +640,6 @@ namespace GiuxItems
                             if (Main.rand.Next(0, (7 - w)) != 0)
                             {
                                 Tile til = Framing.GetTileSafely(posAX + w, posAY + wd);
-                                til.type = 0;
                                 til.active(false);
                             }
                         }
@@ -412,6 +648,10 @@ namespace GiuxItems
             }
             return true;
         }
+
+        #endregion
+
+        #region WellShapes
 
         private readonly int[,] _wellshape = {
             {0,0,3,1,4,0,0 },
@@ -542,5 +782,64 @@ namespace GiuxItems
             {0,0,1,2,1,0,0 },
             {0,0,0,0,0,0,0 },
         };
+
+    #endregion
+
+        #region CastliesShapes
+
+    private readonly int[,] _castleshape = {
+            {3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3},
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {2,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,2},
+            {1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
+        };
+
+        private readonly int[,] _castleshapewalls = {
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,2,1,1},
+            {1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,2,1,1},
+            {1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,2,1,1},
+            {1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,2,1,1},
+            {1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,2,1,1},
+            {1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,2,1,1},
+            {1,1,2,1,1,1,1,1,1,2,1,1,1,1,2,1,1,1,1,1,1,2,1,1},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+        };
+
+        private readonly int[,] _castleshapeDecoration = {
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,3,0,0,0,0,3,0,0,0,0,0,0,3,0,0,0,0,3,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,1,0,0,0,0,0,2,0,0,0,0,0,1,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+        };
+
+        private readonly int[,] _castleshapeWiring = {
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,1,0,0,0,0},
+            {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1},
+            {0,0,0,0,0,0,0,0,2,0,0,0,0,0,0,0,0,0,0,2,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+            {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+        };
+
+        #endregion
+
     }
 }

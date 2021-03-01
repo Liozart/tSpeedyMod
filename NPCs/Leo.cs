@@ -1,5 +1,6 @@
 ﻿using System;
 using GiuxItems.Items;
+using GiuxItems.Items.Placeables;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
@@ -92,7 +93,8 @@ namespace GiuxItems.NPCs
                 case 0:
                     return "Out of bathr";
                 case 1:
-                    return "Tavu c moi";
+                    Main.npcChatCornerItem = ItemType<BathriteBar>();
+                    return $"La bathrite [i:{ItemType<Bathrite>()}] se trouve au fin fond de l'enfer, gl hf"; ;
                 case 2:
                     {
                         // Main.npcChatCornerItem shows a single item in the corner, like the Angler Quest chat.
