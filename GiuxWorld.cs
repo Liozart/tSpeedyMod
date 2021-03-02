@@ -11,6 +11,8 @@ namespace GiuxItems
 {
     public class GiuxWorld : ModWorld
     {
+        //public override string Texture => "Terraria/Item_" + ItemID.LifeFruit;
+
         const double giuxOreNmb = 5E-05;
         const float wellNmb = 1600f;
         const float tunnelsNmb = 80f;

@@ -8,6 +8,7 @@ namespace GiuxItems.Buffs
 {
 	public class ButterflyBarrier : ModBuff
 	{
+
 		public override void SetDefaults()
 		{
 			DisplayName.SetDefault("Butterfly Barrier");
@@ -17,14 +18,18 @@ namespace GiuxItems.Buffs
 			canBeCleared = true;
 		}
 
-        int cnt = 0;
+		int timer = 60, cnt = 0;
 		public override void Update(Player player, ref int buffIndex)
 		{
-            if (++cnt >= 60){
-                cnt = 0;
-                Projectile.NewProjectile(player.position, new Vector2(Main.rand.Next(-1, 2), -1), ModContent.ProjectileType<ButterflyGardian>(), 42, 5, player.whoAmI);
-            }
-
+			if (player.GetModPlayer<GiuxPlayer>().butterFliesCnt < 5 && cnt >= timer)
+            {
+				Projectile.NewProjectile(player.position, new Vector2(Main.rand.Next(-1, 2), -1), ModContent.ProjectileType<ButterflyGardian>(), 42, 5, player.whoAmI);
+				player.GetModPlayer<GiuxPlayer>().butterFliesCnt++;
+				cnt = 0;
+			}
+			cnt++;
+			if (cnt >= timer)
+				cnt = timer;
 		}
 	}
 }

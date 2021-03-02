@@ -30,7 +30,7 @@ namespace GiuxItems.Items.Weapons.Bows
             item.rare = ItemRarityID.Pink;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
-            item.shootSpeed = 8f;
+            item.shootSpeed = 18f;
             item.shoot = ProjectileType<Speedarter>();
         }
 

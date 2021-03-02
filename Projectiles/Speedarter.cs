@@ -14,6 +14,7 @@ namespace GiuxItems.Projectiles
             projectile.aiStyle = 1;
             aiType = 1;
             projectile.ranged = true;
+            projectile.light = 1f;
             projectile.friendly = true;
             projectile.hostile = false;
             projectile.damage = 24;

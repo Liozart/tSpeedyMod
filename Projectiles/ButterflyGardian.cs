@@ -215,6 +215,13 @@ namespace GiuxItems.Projectiles
             //base.AI();
         }
 
+        public override void Kill(int timeLeft)
+        {
+            GiuxPlayer player = Main.player[projectile.owner].GetModPlayer<GiuxPlayer>();
+            player.butterFliesCnt--;
+            base.Kill(timeLeft);
+        }
+
         public override void OnHitNPC(NPC target, int damage, float knockback, bool crit)
         {
             target.AddBuff(BuffID.Poisoned, 1200);
