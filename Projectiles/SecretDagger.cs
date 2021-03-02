@@ -8,7 +8,7 @@ namespace GiuxItems.Projectiles
     {
         public override void SetStaticDefaults()
         {
-            DisplayName.SetDefault("SecretDagger");
+            DisplayName.SetDefault("Secret Dagger");
         }
 
         public override void SetDefaults()

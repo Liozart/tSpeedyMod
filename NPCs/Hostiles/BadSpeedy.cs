@@ -1,12 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using MonoMod.Cil;
-using System;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 
-namespace GiuxItems.NPCs
+namespace GiuxItems.NPCs.Hostiles
 {
     public class BadSpeedy : ModNPC
     {

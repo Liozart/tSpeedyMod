@@ -3,10 +3,11 @@ A mod dedicated to Giux. xoxo
 Add : 
 	2 new ores and bars (The Bathrite is hidden in hell)
 	3 new structures : wells, mine tunnels and bunny temples
-	16 Weapons
-	1 armor with special buffs + 4 Accessories
+	17 Weapons
+	1 armor and buffs
+	4 Accessories
 	2 Town NPCs
-	1 Critter
+	3 Critter
 	1 Hostile NPC
 	And some new materials
 

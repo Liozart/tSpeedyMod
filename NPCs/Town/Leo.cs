@@ -1,14 +1,11 @@
-﻿using System;
-using GiuxItems.Items;
-using GiuxItems.Items.Placeables;
+﻿using GiuxItems.Items.Placeables;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static GiuxItems.NPCs.BadSpeedy;
-using static GiuxItems.NPCs.Speedy;
+using static GiuxItems.NPCs.Hostiles.BadSpeedy;
 using static Terraria.ModLoader.ModContent;
 
-namespace GiuxItems.NPCs
+namespace GiuxItems.NPCs.Town
 {
     // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
     [AutoloadHead]
@@ -101,6 +98,8 @@ namespace GiuxItems.NPCs
                         Main.npcChatCornerItem = ItemType<BadSpeedyItem>();
                         return $"Hey, si tu trouve de la [i:{ItemType<BadSpeedyItem>()}], tu peux l'utiliser pour craft";
                     }
+                case 3:
+                    return "Kill bosses and i'll sell bags";
                 default:
                     return "Yo yo";
             }
@@ -128,59 +127,76 @@ namespace GiuxItems.NPCs
             if (NPC.downedBoss1)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.KingSlimeBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 3);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.EaterOfWorldsBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 5);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.EyeOfCthulhuBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 5);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.BrainOfCthulhuBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 5);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.QueenBeeBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 10);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.SkeletronBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 12);
                 nextSlot++;
             }
             if (Main.hardMode)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.WallOfFleshBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 20);
                 nextSlot++;
             }
             if (NPC.downedMechBossAny)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.TwinsBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 25);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.SkeletronPrimeBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 25);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.DestroyerBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 25);
                 nextSlot++;
             }
             if (NPC.downedPlantBoss)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.PlanteraBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 42);
                 nextSlot++;
             }
             if (NPC.downedGolemBoss)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.GolemBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 42);
                 nextSlot++;
             }
             if (NPC.downedAncientCultist)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.BossBagDarkMage);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 10);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.FishronBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 42);
                 nextSlot++;
             }
             if (NPC.downedTowers)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.BossBagBetsy);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 40);
                 nextSlot++;
                 shop.item[nextSlot].SetDefaults(ItemID.BossBagOgre);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 30);
                 nextSlot++;
             }
             if (NPC.downedMoonlord)
             {
                 shop.item[nextSlot].SetDefaults(ItemID.MoonLordBossBag);
+                shop.item[nextSlot].shopCustomPrice = Item.buyPrice(gold: 50);
                 nextSlot++;
             }
         }

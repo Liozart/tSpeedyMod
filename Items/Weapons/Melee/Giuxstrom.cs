@@ -3,9 +3,6 @@ using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
 using static Terraria.ModLoader.ModContent;
-using static GiuxItems.NPCs.Speedy;
-using static GiuxItems.NPCs.BadSpeedy;
-using GiuxItems.Projectiles;
 using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Weapons.Melee

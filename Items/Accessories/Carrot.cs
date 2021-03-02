@@ -2,7 +2,7 @@ using Microsoft.Xna.Framework;
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static GiuxItems.NPCs.BadSpeedy;
+using static GiuxItems.NPCs.Hostiles.BadSpeedy;
 using static Terraria.ModLoader.ModContent;
 
 namespace GiuxItems.Items.Accessories

@@ -1,17 +1,10 @@
 ﻿using GiuxItems.Tiles;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using Terraria;
-using Terraria.DataStructures;
 using Terraria.GameContent.Generation;
 using Terraria.ID;
-using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.ModLoader.IO;
-using Terraria.ObjectData;
 using Terraria.World.Generation;
 
 namespace GiuxItems
@@ -51,28 +44,21 @@ namespace GiuxItems
             if (ShiniesIndex != -1)
             {
                 // Next, we insert our step directly after the original "Shinies" step. 
-                // ExampleModOres is a method seen below.
+                // Add Giux Ores
                 tasks.Insert(ShiniesIndex + 1, new PassLegacy("Giux Ores", GiuxOres));
+                //Add hell holes
+                tasks.Insert(ShiniesIndex + 2, new PassLegacy("Bathrite ore", Bathrite));
             }
 
-            //Add wells step
+            //Add all structures gen steps after the living tree step 
             int LivingTreesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Living Trees"));
             if (LivingTreesIndex != -1)
             {
-                tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Wells", delegate (GenerationProgress progress)
-                {
-                    // We can inline the world generation code like this, but if exceptions happen within this code 
-                    // the error messages are difficult to read, so making methods is better. This is called an anonymous method.
-                    progress.Message = "Making wells";
-                    MakeWells();
-                }));
-
+                tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Wells", MakeWells));
                 //Add mine tunnels step
                 tasks.Insert(LivingTreesIndex + 2, new PassLegacy("Mine Tunnels", MakeTunnels));
                 //Add lil castlies
                 tasks.Insert(LivingTreesIndex + 3, new PassLegacy("Castles", Castlies));
-                //Add hell holes
-                tasks.Insert(LivingTreesIndex + 4, new PassLegacy("Bathrite ore", Bathrite));
             }
         }
 
@@ -332,12 +318,13 @@ namespace GiuxItems
             }
         }
 
-#endregion
+        #endregion
 
         #region Wells
 
-        private void MakeWells()
+        private void MakeWells(GenerationProgress progress)
         {
+            progress.Message = "Making wells";
             float widthScale = Main.maxTilesX / wellNmb;
             int tre = (int)(2f * widthScale);
             int numberToGenerate = WorldGen.genRand.Next((tre / 2) + 1, tre + 1);
@@ -840,6 +827,5 @@ namespace GiuxItems
         };
 
         #endregion
-
     }
 }

@@ -3,8 +3,6 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static GiuxItems.NPCs.BadSpeedy;
-using static GiuxItems.NPCs.Speedy;
 using GiuxItems.Items.Placeables;
 
 namespace GiuxItems.Items.Weapons.Guns

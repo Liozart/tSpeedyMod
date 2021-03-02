@@ -2,9 +2,8 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static GiuxItems.NPCs.Speedy;
 using Terraria.Utilities;
-using static GiuxItems.NPCs.BadSpeedy;
+using static GiuxItems.NPCs.Hostiles.BadSpeedy;
 
 namespace GiuxItems.Items.Accessories
 {

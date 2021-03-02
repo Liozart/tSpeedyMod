@@ -1,13 +1,10 @@
-﻿using Microsoft.Xna.Framework;
-using Terraria;
+﻿using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
 using GiuxItems.Projectiles;
-using static GiuxItems.NPCs.Speedy;
-using System;
-using System.Windows;
 using GiuxItems.Items.Placeables;
+using static GiuxItems.NPCs.Critters.Speedy;
 
 namespace GiuxItems.Items.Weapons.Bows
 {
@@ -15,7 +12,7 @@ namespace GiuxItems.Items.Weapons.Bows
     {
         public override void SetStaticDefaults()
         {
-            Tooltip.SetDefault("Basically a bow");
+            Tooltip.SetDefault("Basically an infinite bow");
         }
 
         public override void SetDefaults()
@@ -33,7 +30,7 @@ namespace GiuxItems.Items.Weapons.Bows
             item.rare = ItemRarityID.Pink;
             item.UseSound = SoundID.Item1;
             item.autoReuse = true;
-            item.shootSpeed = 24f;
+            item.shootSpeed = 8f;
             item.shoot = ProjectileType<Speedarter>();
         }
 
@@ -41,6 +38,7 @@ namespace GiuxItems.Items.Weapons.Bows
         {
             ModRecipe recipe = new ModRecipe(mod);
             recipe.AddIngredient(ItemType<GiuxBar>(), 8);
+            recipe.AddIngredient(ItemType<SpeedyItem>(), 8);
             recipe.AddIngredient(ItemID.WhiteString, 1);
             recipe.AddIngredient(ItemID.Hook, 1);
             recipe.AddTile(TileID.WorkBenches);

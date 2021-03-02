@@ -3,10 +3,10 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static GiuxItems.NPCs.BadSpeedy;
+using static GiuxItems.NPCs.Hostiles.BadSpeedy;
 using GiuxItems.Projectiles;
 using GiuxItems.Items.Placeables;
-using static GiuxItems.NPCs.Speedy;
+using static GiuxItems.NPCs.Critters.Speedy;
 
 namespace GiuxItems.Items.Weapons.Staffs
 {

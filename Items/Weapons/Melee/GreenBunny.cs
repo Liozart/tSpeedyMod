@@ -2,7 +2,7 @@ using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
 using Microsoft.Xna.Framework;
-using static GiuxItems.NPCs.Speedy;
+using static GiuxItems.NPCs.Critters.Speedy;
 using static Terraria.ModLoader.ModContent;
 using GiuxItems.Items.Placeables;
 

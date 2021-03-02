@@ -2,7 +2,7 @@
 using Terraria.ID;
 using Terraria.ModLoader;
 using static Terraria.ModLoader.ModContent;
-using static GiuxItems.NPCs.Speedy;
+using static GiuxItems.NPCs.Critters.Speedy;
 using Terraria.Utilities;
 
 namespace GiuxItems.Items.Accessories

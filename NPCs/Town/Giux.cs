@@ -2,10 +2,10 @@
 using Terraria;
 using Terraria.ID;
 using Terraria.ModLoader;
-using static GiuxItems.NPCs.Speedy;
+using static GiuxItems.NPCs.Critters.Speedy;
 using static Terraria.ModLoader.ModContent;
 
-namespace GiuxItems.NPCs
+namespace GiuxItems.NPCs.Town
 {
     // [AutoloadHead] and npc.townNPC are extremely important and absolutely both necessary for any Town NPC to work at all.
     [AutoloadHead]
@@ -69,7 +69,7 @@ namespace GiuxItems.NPCs
                 }
                 foreach (Item item in player.inventory)
                 {
-                    if (item.type == ItemType<GiuxBar>())
+                    if (item.type == ItemType<SpeedyItem>())
                     {
                         return true;
                     }
