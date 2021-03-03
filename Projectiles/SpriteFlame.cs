@@ -17,8 +17,8 @@ namespace GiuxItems.Projectiles
         {
             projectile.width = 30;
             projectile.height = 30;
-            projectile.aiStyle = 5;
-            aiType = 5;
+            projectile.aiStyle = 8;
+            aiType = 8;
             projectile.ranged = true;
             projectile.light = 1f;
             projectile.penetrate = 5;
@@ -62,13 +62,6 @@ namespace GiuxItems.Projectiles
             Projectile.NewProjectile(projectile.position, new Vector2(-10, 0), ModContent.ProjectileType<SpriteFlame>(), damage, knockback);
             Projectile.NewProjectile(projectile.position, new Vector2(0, 10), ModContent.ProjectileType<SpriteFlame>(), damage, knockback);
             Projectile.NewProjectile(projectile.position, new Vector2(0, -10), ModContent.ProjectileType<SpriteFlame>(), damage, knockback);
-        }
-
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            for (int i = 0; i < 4; i++)
-                Dust.NewDust(projectile.position, projectile.width, projectile.height, DustID.FlameBurst);
-            return true;
         }
 
         // Some advanced drawing because the texture image isn't centered or symetrical.

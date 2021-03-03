@@ -17,7 +17,7 @@ namespace GiuxItems.NPCs.Critters
         public override void SetDefaults()
         {
             npc.CloneDefaults(NPCID.Frog);
-            npc.catchItem = ItemID.Frog;
+            npc.catchItem = (short)ItemType<Froggy1Item>();
             npc.lavaImmune = false;
             npc.friendly = true; // We have to add this and CanBeHitByItem/CanBeHitByProjectile because of reasons.
             aiType = NPCID.Frog;
@@ -58,6 +58,24 @@ namespace GiuxItems.NPCs.Critters
                         Main.dust[dust].scale = 0.7f * npc.scale;
                     }
                 }
+            }
+        }
+
+        internal class Froggy1Item : ModItem
+        {
+            public override void SetStaticDefaults()
+            {
+                DisplayName.SetDefault("Lil' red froggy");
+            }
+
+            public override void SetDefaults()
+            {
+                item.CloneDefaults(ItemID.Frog);
+                item.consumable = false;
+                item.material = true;
+                item.value = Item.silver * 1;
+                item.bait = 42;
+                item.makeNPC = (short)NPCType<Froggy1>();
             }
         }
     }

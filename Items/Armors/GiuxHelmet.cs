@@ -28,9 +28,7 @@ namespace GiuxItems.Items.Armors
 		public override void UpdateArmorSet(Player player)
 		{
 			player.AddBuff(ModContent.BuffType<Telesafe>(), 10);
-            player.AddBuff(ModContent.BuffType<ButterflyBarrier>(), 10);
-            player.thrownDamage -= 0.2f;
-			player.magicDamage -= 0.2f;
+            player.allDamage += 0.2f;
 		}
 
 		public override void AddRecipes() {

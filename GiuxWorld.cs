@@ -22,7 +22,7 @@ namespace GiuxItems
         int[] tunnelChestItemsList = { ItemID.PhilosophersStone, ItemID.LuckyHorseshoe, ItemID.BalloonPufferfish, ItemID.PowerGlove, ItemID.FleshKnuckles, ItemID.MoonCharm,
                                     ItemID.MagmaStone, ItemID.FrozenTurtleShell, ItemID.PaladinsShield, ItemID.ShinyRedBalloon, ItemID.Seaweed, ItemID.ObsidianRose,
                                     ItemID.PutridScent, ItemID.SharkToothNecklace, ItemID.Flamelash, ItemID.JellyfishNecklace, ItemID.GoldenFishingRod, ItemID.FishHook, ItemID.FuzzyCarrot,
-                                    ItemID.SlimeStaff, ItemID.CandyCornRifle, ItemID.BladedGlove, ItemID.BloodyMachete, ItemID.Cascade, ItemID.BoneSword};
+                                    ItemID.SlimeStaff, ItemID.CandyCornRifle, ItemID.BladedGlove, ItemID.BloodyMachete, ItemID.Cascade, ItemID.BoneSword, ItemID.MoonMask, ItemID.SunMask};
         
         int[] wellChestItemsList = { ItemID.DivingGear, ItemID.DivingHelmet, ItemID.SailfishBoots, ItemID.WaterWalkingBoots, ItemID.FrogLeg, ItemID.PhilosophersStone,
                                     ItemID.ClimbingClaws, ItemID.WhoopieCushion, ItemID.NeptunesShell};
@@ -33,7 +33,8 @@ namespace GiuxItems
 
         int[] castliesChestItemList = { ItemID.IlluminantHook, ItemID.InfernoFork, ItemID.TheHorsemansBlade, ItemID.StakeLauncher, ItemID.RavenStaff, ItemID.ChristmasTreeSword,
                                         ItemID.ChainGun, ItemID.BlizzardStaff, ItemID.BatScepter, ItemID.CoinGun, ItemID.BeamSword, ItemID.Marrow, ItemID.Uzi, ItemID.MagicQuiver,
-                                        ItemID.DemonHeart, ItemID.BrainScrambler, ItemID.FrostStaff};
+                                        ItemID.DemonHeart, ItemID.BrainScrambler, ItemID.FrostStaff, ItemID.DarkSoulReaper, ItemID.Kraken, ItemID.MoneyTrough, ItemID.TheAxe, ItemID.PoisonStaff,
+                                        ItemID.ShadowbeamStaff, ItemID.SpectreStaff, ItemID.UnholyTrident, };
 
         // We use this hook to add 3 steps to world generation at various points. 
         public override void ModifyWorldGenTasks(List<GenPass> tasks, ref float totalWeight)
@@ -48,19 +49,20 @@ namespace GiuxItems
                 // Next, we insert our step directly after the original "Shinies" step. 
                 // Add Giux Ores
                 tasks.Insert(ShiniesIndex + 1, new PassLegacy("Giux Ores", GiuxOres));
-                //Add hell holes
-                tasks.Insert(ShiniesIndex + 2, new PassLegacy("Bathrite ore", Bathrite));
             }
 
             //Add all structures gen steps after the living tree step 
             int LivingTreesIndex = tasks.FindIndex(genpass => genpass.Name.Equals("Living Trees"));
             if (LivingTreesIndex != -1)
             {
-                tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Wells", MakeWells));
+                //Add hell holes
+                tasks.Insert(LivingTreesIndex + 1, new PassLegacy("Bathrite ore", Bathrite));
+                //Add wells
+                tasks.Insert(LivingTreesIndex + 2, new PassLegacy("Wells", MakeWells));
                 //Add mine tunnels step
-                tasks.Insert(LivingTreesIndex + 2, new PassLegacy("Mine Tunnels", MakeTunnels));
+                tasks.Insert(LivingTreesIndex + 3, new PassLegacy("Mine Tunnels", MakeTunnels));
                 //Add lil castlies
-                tasks.Insert(LivingTreesIndex + 3, new PassLegacy("Castles", Castlies));
+                tasks.Insert(LivingTreesIndex + 4, new PassLegacy("Castles", Castlies));
             }
         }
 
@@ -82,7 +84,7 @@ namespace GiuxItems
                     int ranY = Main.rand.Next(Main.maxTilesY - 80, Main.maxTilesY - 70);
                     if (WorldGen.InWorld(ranX, ranY))
                     {
-                        WorldGen.TileRunner(ranX, ranY, 10, 24, ModContent.TileType<Bathrite>(), true, 0, 0, false, true);
+                        WorldGen.TileRunner(ranX, ranY, 14, 24, ModContent.TileType<Bathrite>(), true, 0, 0, false, true);
                         success = true;
                     }
                     int upY = 0;

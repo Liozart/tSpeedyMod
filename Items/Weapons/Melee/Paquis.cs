@@ -16,7 +16,7 @@ namespace GiuxItems.Items.Weapons.Melee
 
 		public override void SetDefaults() 
 		{
-			item.damage = 25;
+			item.damage = 20;
 			item.melee = true;
 			item.width = 44;
 			item.height = 46;

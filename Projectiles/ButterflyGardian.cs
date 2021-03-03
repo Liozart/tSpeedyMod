@@ -15,6 +15,13 @@ namespace GiuxItems.Projectiles
         {
             DisplayName.SetDefault("Butterfly Gardian");
             Main.projFrames[projectile.type] = 3;
+            
+            // Denotes that this projectile is a pet or minion
+            Main.projPet[projectile.type] = true;
+            // This is needed so your minion can properly spawn when summoned and replaced when other minions are summoned
+            //ProjectileID.Sets.MinionSacrificable[projectile.type] = true;
+            // Don't mistake this with "if this is true, then it will automatically home". It is just for damage reduction for certain NPCs
+            ProjectileID.Sets.Homing[projectile.type] = true;
         }
         
         int spriteYOffset = 0;

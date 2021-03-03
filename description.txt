@@ -1,16 +1,21 @@
 A mod dedicated to Giux. xoxo
 
 Add : 
-	2 new ores and bars (The Bathrite is hidden in hell)
-	3 new structures : wells, mine tunnels and bunny temples
-	17 Weapons
-	1 armor and buffs
-	4 Accessories
-	2 Town NPCs
-	3 Critter
-	1 Hostile NPC
-	And some new materials
+	World generation :
+		2 new ores and bars (The Bathrite is hidden in hell)
+		3 new structures : wells, mine tunnels and bunny temples
+	Items :
+		20 Weapons
+		2 armors and set buffs
+		4 Accessories
+		Some new materials
+	NPCs :
+		3 Town Friends selling various expert or 1% drop items
+		3 Critters
+		1 Hostile
 
+Don't forget to check the guide when aquiring new materials !
+Weapons are designed to be crafted while progressing normally
 -------------------------------------------
 Work in progress
 Some sprites are modified variants from the calamity mod
